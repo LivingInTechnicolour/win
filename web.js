@@ -1,8 +1,11 @@
 require('nko')('+ME1r0iK74WTHJja');
 var express = require('express')
-  , stylus = require('stylus');
+  , stylus = require('stylus')
+  , nowjs = require('now');
 
 var app = express.createServer();
+
+var everyone = nowjs.initialize(app);
 
 app.configure(function(){
   app.set('view engine', 'jade');
@@ -27,3 +30,7 @@ var port = process.env.PORT || 3000;
 app.listen(port, function() {
   console.log("Listening on " + port);
 });
+
+everyone.now.distributeMessage = function(msg){
+  everyone.now.receiveMessage(this.now.name, msg);
+}
