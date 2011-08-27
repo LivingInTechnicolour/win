@@ -9,15 +9,23 @@ now.receiveMessage = function(name, message){
   var elem = $('#history');
   var inner = $('#history > .inner');
   if ( Math.abs(inner.offset().top) + elem.height() + elem.offset().top >= inner.outerHeight() ) {
-    $('#history').animate({ scrollTop: $('#history > .inner').outerHeight() }, "fast");
+    $('#history').stop().animate({ scrollTop: $('#history > .inner').outerHeight() }, "fast");
   }
   $('#history > .inner').append('<p><span class="sender">'+u.esc(name)+'</span>: <span class="message">'+u.esc(message)+'</span></p>');
 };
 
+function setNick(name, success){
+  now.authenticate(name, success, function(){
+      //when it fails, do nothing.. whatever
+    }
+  );
+}
+
 $(function(){
   now.ready(function() {
-    now.authenticate('guest_'+Math.floor(Math.random()*10001));
-    now.joinRoom('home');
+      setNick('guest_'+Math.floor(Math.random()*10001), function(){
+        now.joinRoom('home');
+      });
   });
 });
 
@@ -29,7 +37,7 @@ $('#chatform').submit(function(){
   //parse special commands
   if (msg.substr(0,1) == '/') {
     if (msg.substr(1,5) == 'nick ') {
-      now.name = msg.substr(6);
+      setNick(msg.substr(6));
       input.value = '';
       return false;
     } else if (msg.substr(1,2) == 'j ') {

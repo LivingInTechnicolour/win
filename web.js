@@ -39,4 +39,5 @@ app.listen(port, function() {
   console.log("Listening on " + port);
 });
 
-require(__dirname + '/now/everything.js')(everyone);
+var nowstuff = require(__dirname + '/now/everything.js');
+nowstuff.setup(everyone);
