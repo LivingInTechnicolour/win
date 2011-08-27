@@ -5,7 +5,7 @@ var express = require('express')
 
 var app = express.createServer();
 
-var everyone = nowjs.initialize(app);
+var everyone = nowjs.initialize(app, {'socket.io': {transports:['htmlfile', 'xhr-polling', 'jsonp-polling']}});
 
 app.configure(function(){
   app.set('view engine', 'jade');
