@@ -16,6 +16,24 @@ var keys = {
         return false;
       },
     }, {
+      keys: ['j'],
+      events: ['keydown'],
+      fun: function(){
+        var room = prompt('Which room would you like to join?');
+        if(room){
+          now.joinRoom(room);
+        }
+      }
+    }, {
+      keys: ['n'],
+      events: ['keydown'],
+      fun: function(){
+        var nick = prompt('Choose a nickname!');
+        if(nick){
+          setNick(nick);
+        }
+      }
+    }, {
       keys: ['up', 'down', 'left', 'right'],
       events: ['keydown', 'keyup'],
       fun: function(){
@@ -30,11 +48,12 @@ var key, n, e, k, this_key;
 for (key in keys.input){
   $('#input').bind('keydown', key, keys.input[key]);
 }
-for (key in keys['document']){
-  for (n=0; n < keys['document'].length; n++){
-    this_key = keys['document'][n];
-    for (e=0; e < this_key.events.length; e++){
-      for (k=0; k < this_key.keys.length; k++){
+for (n=0; n < keys['document'].length; n++){
+  this_key = keys['document'][n];
+  for (e=0; e < this_key.events.length; e++){
+    for (k=0; k < this_key.keys.length; k++){
+      //TODO: a better check
+      if(this_key.events[e] && this_key.keys[k] && this_key.fun){
         $(document).bind(this_key.events[e], this_key.keys[k], this_key.fun);
       }
     }
