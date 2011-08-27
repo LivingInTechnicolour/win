@@ -13,7 +13,7 @@ $(function(){
   setTimeout(function(){
     now.authenticate('guest_'+Math.floor(Math.random()*10001));
     now.joinRoom('home');
-  }, 500);
+  }, 1000);
 });
 
 $('#chatform').submit(function(){
