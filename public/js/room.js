@@ -10,7 +10,7 @@ function GameCanvas(args) {
     //this.$canvas.width = this.width;
 
     this.tileSetImg = new Image();
-    this.tileSetImg.src = '/img/chara.png';
+    this.tileSetImg.src = '/img/chara.bmp';
     this.currentImg = 0;
 }
 
