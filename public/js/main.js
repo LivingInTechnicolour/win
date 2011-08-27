@@ -5,13 +5,25 @@ u.esc = function(t){
   return $('<div/>').text(t).html();
 };
 
+function has_scrollbar(elem) { 
+  if (elem[0].clientHeight < elem[0].scrollHeight) 
+    return true; 
+  else
+    return false;
+} 
+
 now.receiveMessage = function(name, message){
   var elem = $('#history');
   var inner = $('#history > .inner');
-  if ( Math.abs(inner.offset().top) + elem.height() + elem.offset().top >= inner.outerHeight() ) {
+  var had_scrollbar = has_scrollbar(elem);//to detect the first reaching of the end of the box
+  if ( elem.scrollTop() + elem.height() == inner.outerHeight() ) {
     $('#history').stop().animate({ scrollTop: $('#history > .inner').outerHeight() }, "fast");
   }
-  $('#history > .inner').append('<p><span class="sender">'+u.esc(name)+'</span>: <span class="message">'+u.esc(message)+'</span></p>');
+  inner.append('<p><span class="sender">'+u.esc(name)+'</span>: <span class="message">'+u.esc(message)+'</span></p>');
+  //we have to scroll it if it just got a scroll bar
+  if (!had_scrollbar && has_scrollbar(elem)){
+     $('#history').stop().animate({ scrollTop: $('#history > .inner').outerHeight() }, "fast");
+  }
 };
 
 function setNick(name, success){
