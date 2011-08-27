@@ -2,6 +2,19 @@
   margin: 5px auto;
   width: 1000px;
 }
+h1 {
+  font-weight: bold;
+}
+li {
+  margin-left: 1em;
+  margin-top: 0.5em;
+}
+input {
+  margin-top: 1em;
+}
+.hidden {
+  display: none;
+}
 #app {
   background-color: #000;
 }
@@ -19,6 +32,7 @@
   height: 20px;
   width: 891px;
   padding: 3px;
+  margin: 0;
   background-color: #ddf;
   border: 1px solid #000;
   border-right: 0px;
@@ -29,6 +43,7 @@
   height: 28px;
   width: 96px;
   padding: 3px;
+  margin: 0;
   margin-right: 2px;
   background-color: #fff;
   border: 1px solid #000;

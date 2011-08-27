@@ -52,9 +52,9 @@ var User = function(clientId, name){
   };
   
   this.rename = function(name){
-    lists.forEach(function(list){
+    this.lists.forEach(function(list){
       delete list.by_name[this.name];
-      list.by_name[name] = user;
+      list.by_name[name] = this;
     }, this);
     this.name = name; //make sure this is done last
   };
@@ -62,13 +62,13 @@ var User = function(clientId, name){
   //use lists.push to add and use this for remove
   this.remove_list = function(list_to_remove){
     var index;
-    lists.forEach(function(list, i){
+    this.lists.forEach(function(list, i){
       if(list_to_remove == list){
         index = i;
       }
     }, this);
     if(index !== undefined){
-      user.lists.slice(index,1);
+      this.lists.slice(index,1);
     }
   }
 };
@@ -166,7 +166,7 @@ nowstuff.setup = function(everyone){
       }
       //old user!
       else {
-        users.rename(user, name);
+        user.rename(name);
       }
       
       this.now.receiveMessage("SERVER", "Your nickname is now " + name
@@ -176,7 +176,7 @@ nowstuff.setup = function(everyone){
         success();
       }
     } else {
-      this.now.receiveMessage("SERVER ERROR", "Your nickname is taken. Type /nick <new name> to change it");
+      this.now.receiveMessage("SERVER ERROR", "This nickname is taken. Type /nick <new name> to choose anytoher one");
       fail();
     }
   }
@@ -201,8 +201,12 @@ nowstuff.setup = function(everyone){
   };
   
   everyone.now.moveTo = function(x,y){
-    this.now.x = x;
-    this.now.y = y;
+    //get data
+    var cid = this.user.clientId;
+    var user = users.by_cid[cid];
+    
+    user.x = x;
+    user.y = y;
   }
   
   /*groups.home.on('join', function(){
@@ -211,6 +215,7 @@ nowstuff.setup = function(everyone){
   
   nowjs.on('connect', function () {
     this.now.receiveMessage('SERVER', 'Welcome to Node-room.');
+    this.now.receiveMessage('SERVER', 'Hotkeys: [tab] [j] [n] [left] [right] [up] [down]');
   });
   
   nowjs.on('disconnect', function() {

@@ -7,3 +7,15 @@
     form#chatform
       input#submit(type="submit", value="Talk!")
       input#input(type="text")
+
+- if(show_tut)
+  #tutorial.hidden
+    h1 Hotkeys:
+    ul
+      li [tab] - focus/blur chat box
+      li j - join room
+      li n - change nickname
+      li [arrow keys] - move
+    label
+      input#never(type="checkbox")
+      |  Never show this again.
