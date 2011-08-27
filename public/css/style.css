@@ -12,6 +12,9 @@ li {
 input {
   margin-top: 1em;
 }
+.hidden {
+  display: none;
+}
 #app {
   background-color: #000;
 }
