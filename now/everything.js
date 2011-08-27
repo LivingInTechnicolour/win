@@ -8,7 +8,7 @@ var nowstuff = module.exports;
 
 //get classes
 var RoomList = require(__dirname+'/roomlist.js');
-var UserList = require(__dirname+'/userlist2.js');
+var UserList = require(__dirname+'/userlist.js');
 
 //all users
 var users = new UserList();
