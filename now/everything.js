@@ -62,13 +62,13 @@ var User = function(clientId, name){
   //use lists.push to add and use this for remove
   this.remove_list = function(list_to_remove){
     var index;
-    lists.forEach(function(list, i){
+    this.lists.forEach(function(list, i){
       if(list_to_remove == list){
         index = i;
       }
     }, this);
     if(index !== undefined){
-      user.lists.slice(index,1);
+      this.lists.slice(index,1);
     }
   }
 };
