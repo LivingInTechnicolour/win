@@ -39,37 +39,37 @@ var User = function(clientId, name){
   
   this.room = undefined;//a reference to the room object
   this.lists = [];//this includes the user list for room the user is in
+};
+
+//remove all links to this user
+User.prototype.destroy = function(){
+  lists.forEach(function(list){
+    list.remove(this);
+  }, this);
+  //quit the room so it can be destroyed if needed
+  if(this.room !== undefined){
+    room.quit(user);
+  }
+};
   
-  //remove all links to this user
-  this.destroy = function(){
-    lists.forEach(function(list){
-      list.remove(this);
-    }, this);
-    //quit the room so it can be destroyed if needed
-    if(this.room !== undefined){
-      room.quit(user);
+User.prototype.rename = function(name){
+  this.lists.forEach(function(list){
+    delete list.by_name[this.name];
+    list.by_name[name] = this;
+  }, this);
+  this.name = name; //make sure this is done last
+};
+
+//use lists.push to add and use this for remove
+User.prototype.remove_list = function(list_to_remove){
+  var index;
+  this.lists.forEach(function(list, i){
+    if(list_to_remove == list){
+      index = i;
     }
-  };
-  
-  this.rename = function(name){
-    this.lists.forEach(function(list){
-      delete list.by_name[this.name];
-      list.by_name[name] = this;
-    }, this);
-    this.name = name; //make sure this is done last
-  };
-  
-  //use lists.push to add and use this for remove
-  this.remove_list = function(list_to_remove){
-    var index;
-    this.lists.forEach(function(list, i){
-      if(list_to_remove == list){
-        index = i;
-      }
-    }, this);
-    if(index !== undefined){
-      this.lists.slice(index,1);
-    }
+  }, this);
+  if(index !== undefined){
+    this.lists.slice(index,1);
   }
 };
 
@@ -80,23 +80,23 @@ var User = function(clientId, name){
 var UserList = function(){
   this.by_cid = {};
   this.by_name = {};
-  
-  this.remove = function(user){
-    delete this.by_cid[user.clientId];
-    delete this.by_name[user.name];
-    user.remove_list(this);
-    return user;
-  }
-  this.add = function(user){
-    this.by_cid[user.clientId] = user;
-    this.by_name[user.name] = user;
-    user.lists.push(this);
-  }
-  this.create = function(cid, name){
-    var user = new User(cid, name);
-    this.add(user);
-    return user;
-  }
+};
+
+UserList.prototype.remove = function(user){
+  delete this.by_cid[user.clientId];
+  delete this.by_name[user.name];
+  user.remove_list(this);
+  return user;
+};
+UserList.prototype.add = function(user){
+  this.by_cid[user.clientId] = user;
+  this.by_name[user.name] = user;
+  user.lists.push(this);
+};
+UserList.prototype.create = function(cid, name){
+  var user = new User(cid, name);
+  this.add(user);
+  return user;
 };
 
 //all users
@@ -111,34 +111,34 @@ var Room = function(name){
 //keeps track of all the rooms
 var RoomList = function(){
   this.by_name = {};//a map of name: Room
+};
+
+RoomList.prototype.join_by_name = function(name, user){
+  var room;
   
-  this.join_by_name = function(name, user){
-    var room;
-    
-    //create room if it doesn't eixst
-    if(this.by_name[name] === undefined){
-      room = new Room(name);
-      this.by_name[name] = room;
-    } else {
-      room = this.by_name[name];
-    }
-    
-    this.join(room, user);
+  //create room if it doesn't eixst
+  if(this.by_name[name] === undefined){
+    room = new Room(name);
+    this.by_name[name] = room;
+  } else {
+    room = this.by_name[name];
   }
   
-  //remember to quite the old one before joining the new one
-  this.join = function(room, user){
-    room.users.add(user);
-    user.room = room;
-  }
+  this.join(room, user);
+};
   
-  //remove both connections
-  this.quit = function(user){
-    var room = user.room;
-    delete user.room;
-    room.users.remove(user);
-    //TODO: check if the room is emptry and destroy it
-  }
+//remember to quite the old one before joining the new one
+RoomList.prototype.join = function(room, user){
+  room.users.add(user);
+  user.room = room;
+}
+
+//remove both connections
+RoomList.prototype.quit = function(user){
+  var room = user.room;
+  delete user.room;
+  room.users.remove(user);
+  //TODO: check if the room is emptry and destroy it
 };
 
 //we only really have one RoomList
@@ -197,7 +197,7 @@ nowstuff.setup = function(everyone){
                           + ". Type /j <room> to join another room.");
     
     //TODO: Francis, you would want to change the room on the screen here!
-    //maybe add a callback
+    //maybe add a callback; we have to pass it all the user objects in that room
   };
   
   everyone.now.moveTo = function(x,y){
@@ -207,6 +207,7 @@ nowstuff.setup = function(everyone){
     
     user.x = x;
     user.y = y;
+    //TODO: notify everyone in the room about the movement
   }
   
   /*groups.home.on('join', function(){
