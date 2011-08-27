@@ -8,6 +8,7 @@ u.esc = function(t){
 now.receiveMessage = function(name, message){
   $('#history').append('<p><span class="sender">'+u.esc(name)+'</span>: <span class="message">'+u.esc(message)+'</span></p>');
 };
+
 $(function(){
   now.ready(function() {
     now.authenticate('guest_'+Math.floor(Math.random()*10001));
@@ -37,3 +38,6 @@ $('#chatform').submit(function(){
   input.value = '';
   return false;
 });
+
+var game = new GameCanvas({'width': 1000, 'height': 500, 'canvasId': 'app'});
+game.gameLoop();
