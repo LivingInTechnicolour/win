@@ -29,7 +29,7 @@ $(function(){
   });
 });
 
-$('#chatform').submit(function(){
+$('#chatform').submit(function(e){
 
   var input = document.getElementById('input');
   var msg = input.value;
@@ -38,18 +38,15 @@ $('#chatform').submit(function(){
   if (msg.substr(0,1) == '/') {
     if (msg.substr(1,5) == 'nick ') {
       setNick(msg.substr(6));
-      input.value = '';
-      return false;
     } else if (msg.substr(1,2) == 'j ') {
       now.joinRoom(msg.substr(3));
-      input.value = '';
-      return false;
     }
+  } else {
+   now.distributeMessage(msg);
   }
-
-  now.distributeMessage(msg);
+  $('#input').focus();
   input.value = '';
-  return false;
+  e.preventDefault();
 });
 
 var game = new GameCanvas({'width': 1000, 'height': 500, 'canvasId': 'app'});
