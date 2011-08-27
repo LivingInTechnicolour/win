@@ -9,11 +9,10 @@ now.receiveMessage = function(name, message){
   $('#history').append('<p><span class="sender">'+u.esc(name)+'</span>: <span class="message">'+u.esc(message)+'</span></p>');
 };
 $(function(){
-  //BAWWWW we have to wait an unknown amount of time for now.js to sync
-  setTimeout(function(){
+  now.ready(function() {
     now.authenticate('guest_'+Math.floor(Math.random()*10001));
     now.joinRoom('home');
-  }, 1000);
+  });
 });
 
 $('#chatform').submit(function(){
