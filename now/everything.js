@@ -52,9 +52,9 @@ var User = function(clientId, name){
   };
   
   this.rename = function(name){
-    lists.forEach(function(list){
+    this.lists.forEach(function(list){
       delete list.by_name[this.name];
-      list.by_name[name] = user;
+      list.by_name[name] = this;
     }, this);
     this.name = name; //make sure this is done last
   };
@@ -166,7 +166,7 @@ nowstuff.setup = function(everyone){
       }
       //old user!
       else {
-        users.rename(user, name);
+        user.rename(name);
       }
       
       this.now.receiveMessage("SERVER", "Your nickname is now " + name
