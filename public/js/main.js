@@ -9,7 +9,7 @@ now.receiveMessage = function(name, message){
   var elem = $('#history');
   var inner = $('#history > .inner');
   if ( Math.abs(inner.offset().top) + elem.height() + elem.offset().top >= inner.outerHeight() ) {
-    $('#history').animate({ scrollTop: $('#history > .inner').outerHeight() }, "slow");
+    $('#history').animate({ scrollTop: $('#history > .inner').outerHeight() }, "fast");
   }
   $('#history > .inner').append('<p><span class="sender">'+u.esc(name)+'</span>: <span class="message">'+u.esc(message)+'</span></p>');
 };
