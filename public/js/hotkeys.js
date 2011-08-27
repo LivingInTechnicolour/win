@@ -41,13 +41,6 @@ var keys = {
           setNick(nick);
         }
       }
-    }, {
-      keys: ['up', 'down', 'left', 'right'],
-      events: ['keydown', 'keyup'],
-      fun: function(){
-        console.log('will delegat to game to take care of these');
-        return false;
-      },
     }
   ]
 };
