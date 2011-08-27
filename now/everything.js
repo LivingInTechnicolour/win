@@ -176,7 +176,7 @@ nowstuff.setup = function(everyone){
         success();
       }
     } else {
-      this.now.receiveMessage("SERVER ERROR", "Your nickname is taken. Type /nick <new name> to change it");
+      this.now.receiveMessage("SERVER ERROR", "This nickname is taken. Type /nick <new name> to choose anytoher one");
       fail();
     }
   }

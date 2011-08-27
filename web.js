@@ -17,7 +17,8 @@ var everyone = nowjs.initialize(app, {
 
 app.configure(function(){
   app.set('view engine', 'jade');
-
+  
+  app.use(express.cookieParser());
   app.use(stylus.middleware(
     { src: __dirname + '/stylus',
       dest: __dirname + '/public'}
@@ -31,7 +32,13 @@ app.configure('development', function(){
 });
 
 app.get('/', function(req, res) {
-  res.render('index');
+  var data = { show_tut: req.cookies.hide_tut !== 'yes' };
+  res.render('index', data);
+});
+
+app.get('/notutorial', function(req, res){
+  res.cookie('hide_tut', 'yes', {maxAge: 3*365*24*60*60*1000}); //3 years?
+  res.send('ok');
 });
 
 var port = process.env.PORT || 3000;
