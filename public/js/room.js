@@ -43,12 +43,10 @@ GameCanvas.prototype = {
     },
 
     keyDown: function(evt) {
-	this.player.keyDown(evt);
-      return false;
+	return this.player.keyDown(evt);
     },
 
     keyUp: function(evt) {
-	this.player.keyUp(evt);
-      return false;
+	return this.player.keyUp(evt);
     }
 }

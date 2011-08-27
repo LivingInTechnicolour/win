@@ -94,34 +94,44 @@ Character.prototype = {
 	switch(evt.keyCode) {
 	case 38:
 	    this.keyState.UP = 1;
+      return false;
 	    break;
 	case 40:
 	    this.keyState.DOWN = 1;
+      return false;
 	    break;
 	case 37:
 	    this.keyState.LEFT = 1;
+      return false;
 	    break;
 	case 39:
 	    this.keyState.RIGHT = 1;
+      return false;
 	    break;
 	}
+      return true;
     },
 
     keyUp: function(evt) {
-	switch(evt.keyCode) {
-	case 38:
-	    this.keyState.UP = 0;
-	    break;
-	case 40:
-	    this.keyState.DOWN = 0;
-	    break;
-	case 37:
-	    this.keyState.LEFT = 0;
-	    break;
-	case 39:
-	    this.keyState.RIGHT = 0;
-	    break;
-	}
+      switch(evt.keyCode) {
+      case 38:
+          this.keyState.UP = 0;
+          return false;
+          break;
+      case 40:
+          this.keyState.DOWN = 0;
+          return false;
+          break;
+      case 37:
+          this.keyState.LEFT = 0;
+          return false;
+          break;
+      case 39:
+          this.keyState.RIGHT = 0;
+          return false;
+          break;
+      }
+      return true;
     }
 
 }

@@ -1,4 +1,17 @@
-$('#tutorial').dialog({ 
+$('#login').dialog({
+  title: "Login",
+  modal: true,
+  buttons: {
+    Enter: function(){
+      setNick($('#loginform input').val());
+      $(this).dialog('close');
+      open_tut();
+    }
+  }
+});
+
+function open_tut(){
+  $('#tutorial').dialog({ 
     title: "Tutorial", 
     modal: true, 
     buttons:
@@ -10,4 +23,5 @@ $('#tutorial').dialog({
           $(this).dialog('close');
         }
       }
-});
+  });
+}
