@@ -1,17 +1,18 @@
 function GameCanvas(args) {
     this.width = args.width || 1000;
     this.height = args.height || 500;
-    this.refreshRate = args.refreshRate || 300;
+    this.refreshRate = args.refreshRate || 50;
 
     var canvas = document.getElementById(args.canvasId);
-    console.log(canvas);
-    this.context = canvas.getContext('2d');
-    //this.$canvas.height = this.height;
-    //this.$canvas.width = this.width;
 
-    this.tileSetImg = new Image();
-    this.tileSetImg.src = '/img/chara.bmp';
-    this.currentImg = 0;
+    this.context = canvas.getContext('2d');
+
+    this.player = new Character({'x':500, 'y':250, 'avatarIndex':20});
+
+    this.lastUpdate = new Date().getTime();
+
+    $(document).keyup($.proxy(this.keyUp, this));
+    $(document).keydown($.proxy(this.keyDown, this));
 }
 
 GameCanvas.prototype = {
@@ -25,37 +26,27 @@ GameCanvas.prototype = {
 
     gameLoop: function() {
 	setTimeout(jQuery.proxy(this.gameLoop, this), this.refreshRate);
-
-	if(this.currentImg == 1) {
-	    this.currentImg = 0;
-	} else {
-	    this.currentImg = 1;
-	}
-	this.update();
+	var time = new Date().getTime() - this.lastUpdate;
+	this.update(time);
+	this.clear();
+	this.draw();
     },
 
-    update: function() {
-	
-	this.context.drawImage(this.tileSetImg, 640+32*this.currentImg, 96, 32, 32, 500, 250, 32, 32);
-	// Fetch game state from the server here
-	// Update state based on input
-	// Send updated state back to server
+    update: function(time) {
+	console.log("Time " + time);
+	this.player.update(time);
+	this.lastUpdate = new Date().getTime();
     },
     
+    draw: function() {
+	this.player.draw(this.context);
+    },
+
     keyDown: function(evt) {
-	switch(evt.keyCode) {
-	case 38:
-	    console.log('UP');
-	    break;
-	case 40:
-	    console.log('DOWN');
-	    break;
-	case 37:
-	    console.log('LEFT');
-	    break;
-	case 39:
-	    console.log('RIGHT');
-	    break;
-	}
+	this.player.keyDown(evt);
+    },
+
+    keyUp: function(evt) {
+	this.player.keyUp(evt);
     }
 }
