@@ -23,7 +23,7 @@ var keys = {
           modal:true,
           buttons:{
             Join:function(){
-              var room = $('#roomform input[name="room"]:checked').val();
+              var room = $(this).find('input[name="room"]:checked').val();
               now.joinRoom(room);
               $(this).dialog('close');
             }, Cancel: function(){
