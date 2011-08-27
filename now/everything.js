@@ -71,6 +71,14 @@ nowstuff.setup = function(everyone){
     //maybe add a callback; we have to pass it all the user objects in that room
   };
   
+  everyone.now.fetch = function(cb){
+    //get data
+    var cid = this.user.clientId;
+    var user = users.by_cid[cid];
+    
+    cb(user.room);
+  };
+  
   everyone.now.moveTo = function(x,y){
     //get data
     var cid = this.user.clientId;
