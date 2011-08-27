@@ -201,8 +201,12 @@ nowstuff.setup = function(everyone){
   };
   
   everyone.now.moveTo = function(x,y){
-    this.now.x = x;
-    this.now.y = y;
+    //get data
+    var cid = this.user.clientId;
+    var user = users.by_cid[cid];
+    
+    user.x = x;
+    user.y = y;
   }
   
   /*groups.home.on('join', function(){
