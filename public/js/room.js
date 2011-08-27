@@ -44,9 +44,11 @@ GameCanvas.prototype = {
 
     keyDown: function(evt) {
 	this.player.keyDown(evt);
+      return false;
     },
 
     keyUp: function(evt) {
 	this.player.keyUp(evt);
+      return false;
     }
 }
