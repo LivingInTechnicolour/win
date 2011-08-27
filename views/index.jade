@@ -19,3 +19,13 @@
     label
       input#never(type="checkbox")
       |  Never show this again.
+
+#chooseroom.hidden
+  h1 Choose a room
+    form#roomform
+      - var rooms = [{name:'home', label:'Home'}, {name:'alternative', label:'Alternative'}];
+      - for (var room in rooms)
+        label
+          input(type="radio", value=rooms[room].name, name="room")
+          = rooms[room].label
+        br

@@ -19,10 +19,18 @@ var keys = {
       keys: ['j'],
       events: ['keydown'],
       fun: function(){
-        var room = prompt('Which room would you like to join?');
-        if(room){
-          now.joinRoom(room);
-        }
+        $('#chooseroom').dialog({
+          modal:true,
+          buttons:{
+            Join:function(){
+              var room = $('#roomform input[name="room"]:checked').val();
+              now.joinRoom(room);
+              $(this).dialog('close');
+            }, Cancel: function(){
+              $(this).dialog('close');
+            }
+          }
+        });
       }
     }, {
       keys: ['n'],
