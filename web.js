@@ -1,0 +1,29 @@
+require('nko')('+ME1r0iK74WTHJja');
+var express = require('express')
+  , stylus = require('stylus');
+
+var app = express.createServer();
+
+app.configure(function(){
+  app.set('view engine', 'jade');
+
+  app.use(stylus.middleware(
+    { src: __dirname + '/stylus',
+      dest: __dirname + '/public'}
+  ));
+  app.use(express.static(__dirname + '/public'));
+
+});
+
+app.configure('development', function(){
+  app.use(express.logger());
+});
+
+app.get('/', function(req, res) {
+  res.render('index');
+});
+
+var port = process.env.PORT || 3000;
+app.listen(port, function() {
+  console.log("Listening on " + port);
+});

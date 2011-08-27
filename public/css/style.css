@@ -1,0 +1,33 @@
+#warpper {
+  margin: 0 auto;
+}
+#app {
+  background-color: #000;
+}
+#chat {
+  width: 998px;
+  height: 200px;
+  border: 1px solid #000;
+}
+#history {
+  width: 1000px;
+  height: 170px;
+}
+#input {
+  height: 20px;
+  width: 890px;
+  padding: 3px;
+  background-color: #ddf;
+  border: 1px solid #000;
+  font-family: monospace;
+  float: right;
+}
+#submit {
+  height: 28px;
+  width: 98px;
+  padding: 3px;
+  background-color: #fff;
+  border: 1px solid #000;
+  font-family: monospace;
+  float: right;
+}

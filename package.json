@@ -1,0 +1,11 @@
+{
+  "name": "Node-room",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "*",
+    "nko": "*",
+    "socket.io": "*",
+    "stylus": "*",
+    "jade": "*"
+  }
+}
