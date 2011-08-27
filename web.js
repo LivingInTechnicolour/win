@@ -41,6 +41,11 @@ app.get('/notutorial', function(req, res){
   res.send('ok');
 });
 
+app.get('/yestutorial', function(req, res){
+  res.cookie('hide_tut', 'no', {maxAge: Date()}); //kill it
+  res.send('ok');
+});
+
 var port = process.env.PORT || 3000;
 app.listen(port, function() {
   console.log("Listening on " + port);
