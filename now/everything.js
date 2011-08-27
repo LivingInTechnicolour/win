@@ -215,7 +215,7 @@ nowstuff.setup = function(everyone){
   
   nowjs.on('connect', function () {
     this.now.receiveMessage('SERVER', 'Welcome to Node-room.');
-    this.now.receiveMessage('SERVER', 'Press [tab] to talk');
+    this.now.receiveMessage('SERVER', 'Hotkeys: [tab] [j] [n] [left] [right] [up] [down]');
   });
   
   nowjs.on('disconnect', function() {
