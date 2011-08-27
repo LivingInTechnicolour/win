@@ -5,7 +5,15 @@ var express = require('express')
 
 var app = express.createServer();
 
-var everyone = nowjs.initialize(app, {'socketio': {transports:['htmlfile', 'xhr-polling', 'jsonp-polling']}});
+var everyone = nowjs.initialize(app, {
+  'socketio': {
+    transports:['htmlfile', 'xhr-polling', 'jsonp-polling']
+  },
+  "clientWrite" : true//can we set this to false and still have a way
+  //for the server to run something on the client???
+  //we just don't want the client to be messing with their state variables
+  //i guess we should store them outside the now object
+});
 
 app.configure(function(){
   app.set('view engine', 'jade');
@@ -31,6 +39,4 @@ app.listen(port, function() {
   console.log("Listening on " + port);
 });
 
-everyone.now.distributeMessage = function(msg){
-  everyone.now.receiveMessage(this.now.name, msg);
-}
+require(__dirname + '/now/everything.js')(everyone);

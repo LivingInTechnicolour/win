@@ -1,15 +1,34 @@
-now.receiveMessage = function(name, message){
-  $('#history').append('<br>'+name+': '+message);
+//utils
+u = {};
+//utils.escapeHtml
+u.esc = function(t){
+  return $('<div/>').text(t).html();
 };
 
-now.name = 'guest_'+Math.floor(Math.random()*10001);
+now.receiveMessage = function(name, message){
+  $('#history').append('<p><span class="sender">'+u.esc(name)+'</span>: <span class="message">'+u.esc(message)+'</span></p>');
+};
+$(function(){
+  //BAWWWW we have to wait an unknown amount of time for now.js to sync
+  setTimeout(function(){
+    now.authenticate('guest_'+Math.floor(Math.random()*10001));
+    now.joinRoom('home');
+  }, 500);
+});
 
 $('#chatform').submit(function(){
+
   var input = document.getElementById('input');
   var msg = input.value;
-  if(msg.substr(0,1) == '/'){
-    if(msg.substr(1,5) == 'nick '){
+
+  //parse special commands
+  if (msg.substr(0,1) == '/') {
+    if (msg.substr(1,5) == 'nick ') {
       now.name = msg.substr(6);
+      input.value = '';
+      return false;
+    } else if (msg.substr(1,2) == 'j ') {
+      now.joinRoom(msg.substr(3));
       input.value = '';
       return false;
     }
