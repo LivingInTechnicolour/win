@@ -1,4 +1,4 @@
-var Room = require('room.js');
+var Room = require(__dirname+'/room.js');
 
 //keeps track of all the rooms
 var RoomList = function() {

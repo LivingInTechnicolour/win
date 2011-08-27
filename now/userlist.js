@@ -2,7 +2,7 @@
 //these are just references, so we can modify the user in one map and it'll
 //affect every reference to them.
 
-var User = require('user.js');
+var User = require(__dirname+'/user.js');
 
 var UserList = function(){
     this.by_cid = {};

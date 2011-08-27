@@ -1,4 +1,4 @@
-var UserList = require('room.js');
+var UserList = require(__dirname+'/room.js');
 
 //user object - we would have to let this be shared on the client side
 var User = function(clientId, name){
