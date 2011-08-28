@@ -29,4 +29,11 @@ UserList.prototype.create = function(cid, name){
     return user;
 };
 
+UserList.prototype.getState = function() {
+    var state = {};
+    for(user in this.by_name) {
+	state[user] = this.by_name[user].getState();
+    }
+    return state;
+}
 module.exports = UserList;

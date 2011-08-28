@@ -14,6 +14,10 @@ Room.prototype = {
 	if(this.users.by_cid[cid]) {
 	    this.users.by_cid[cid].update(state);
 	}
+    },
+
+    getState: function() {
+	return this.users.getState();
     }
 };
 

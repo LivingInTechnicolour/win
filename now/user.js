@@ -45,7 +45,7 @@ User.prototype.remove_list = function(list_to_remove){
     }
 };
 
-User.prototype.compare = function(user) {
+User.prototype.equals = function(user) {
     if(this.x == user.x &&
        this.y == user.y &&
        this.avatarIndex == user.avatarIndex &&
@@ -74,4 +74,13 @@ User.prototype.update = function(state) {
     }
 };
 
+User.prototype.getState = function() {
+    return {
+	'x': this.x,
+	'y': this.y,
+	'avatarIndex': this.avatarIndex,
+	'facing': this.facing,
+	'currentAnimIndex': this.currentAnimIndex
+    };
+}
 module.exports = User;

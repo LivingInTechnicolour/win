@@ -65,12 +65,15 @@ nowstuff.setup = function(everyone){
 	rooms.join_by_name(room, user);
 	this.now.receiveMessage("SERVER", "You are now in " + user.room.name);
 	
-	//TODO: Francis, you would want to change the room on the screen here!
-	//maybe add a callback; we have to pass it all the user objects in that room
+	var grp = nowjs.getGroup('currentUser');
+	grp.addUser(this.user.clientId);
+
+	var state = user.room.getState();
+	grp.now.receiveState(room, state);
+	nowjs.getGroup(room).now.receiveStateUpdate(user.name, user.getState());
     };
     
-    //TODO: run this periodically and instead of letting users poll,
-    //push this data to them - so we'll have `update_users` on the client side
+    // TODO: Kill polling mechanism
     everyone.now.fetch = function(cb){
 	//get data
 	var cid = this.user.clientId;
@@ -91,12 +94,12 @@ nowstuff.setup = function(everyone){
 	var user = users.by_cid[cid];
 
 	if(user && user.room) {
-	    if(user.compare(state)) {
+	    if(user.equals(state)) {
 		return;
 	    }
 	   
 	    user.room.updateState(cid, state);
-	    nowjs.getGroup(user.room.name).now.recieveState(user.name, state);
+	    nowjs.getGroup(user.room.name).now.receiveStateUpdate(user.name, state);
 	}
     };
     

@@ -26,9 +26,14 @@ now.receiveMessage = function(name, message){
   }
 };
 
-now.recieveState = function(name, state) {
+now.receiveStateUpdate = function(name, state) {
     console.log("Name: " + name);
     console.log("State: " + state);
+};
+
+now.receiveState = function(room, state) {
+    console.log("Receiving room state...");
+    console.log(state);
 };
 
 function setNick(name, success){
