@@ -37,7 +37,7 @@ app.get('/', function(req, res) {
 });
 
 //just for fun - this lets blitz rush us!
-app.get('/mu-d0437295-e28d95f2-6f05c1ab-e26fb0a6 ', function(req,res){
+app.get('/mu-d0437295-e28d95f2-6f05c1ab-e26fb0a6', function(req,res){
   res.send('42');
 });
 
