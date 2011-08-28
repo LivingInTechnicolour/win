@@ -41,7 +41,7 @@ nowstuff.setup = function(everyone){
       }
       
       this.now.receiveMessage("SERVER", "Your nickname is now " + name
-                            + ". To change it, type /nick <new name>");
+                            + ". To change it, press n.");
       
       if (typeof(success) == 'function') {
         success();
@@ -64,8 +64,8 @@ nowstuff.setup = function(everyone){
     
     nowjs.getGroup(room).addUser(cid);
     rooms.join_by_name(room, user);
-    this.now.receiveMessage("SERVER", "You're now in " + user.room.name
-                          + ". Type /j <room> to join another room.");
+    this.now.receiveMessage("SERVER", "You are now in " + user.room.name
+                          + ". Press j to join another room.");
     
     //TODO: Francis, you would want to change the room on the screen here!
     //maybe add a callback; we have to pass it all the user objects in that room
@@ -95,7 +95,6 @@ nowstuff.setup = function(everyone){
   
   nowjs.on('connect', function () {
     this.now.receiveMessage('SERVER', 'Welcome to Node-room.');
-    this.now.receiveMessage('SERVER', 'Hotkeys: [tab] [j] [n] [left] [right] [up] [down]');
   });
   
   nowjs.on('disconnect', function() {

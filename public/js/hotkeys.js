@@ -1,6 +1,22 @@
 // for some reason events in the input and in the document are
 // separate... don't know why, but I want to keep that behavior :)
 
+function chooseroom(){
+  $('#chooseroom').dialog({
+    title: 'Room?',
+    modal:true,
+    buttons:{
+      Join:function(){
+        var room = $(this).find('input[name="room"]:checked').val();
+        now.joinRoom(room);
+        $(this).dialog('close');
+      }, Cancel: function(){
+        $(this).dialog('close');
+      }
+    }
+  });
+}
+
 var keys = {
   input: {
     tab: function(){
@@ -19,27 +35,14 @@ var keys = {
       keys: ['j'],
       events: ['keydown'],
       fun: function(){
-        $('#chooseroom').dialog({
-          modal:true,
-          buttons:{
-            Join:function(){
-              var room = $(this).find('input[name="room"]:checked').val();
-              now.joinRoom(room);
-              $(this).dialog('close');
-            }, Cancel: function(){
-              $(this).dialog('close');
-            }
-          }
-        });
+        chooseroom();
       }
     }, {
       keys: ['n'],
       events: ['keydown'],
       fun: function(){
-        var nick = prompt('Choose a nickname!');
-        if(nick){
-          setNick(nick);
-        }
+        login_dialog(false);
+        return false;
       }
     }
   ]

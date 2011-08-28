@@ -26,7 +26,10 @@
     - var rooms = [{name:'home', label:'Home'}, {name:'alternative', label:'Alternative'}, {name:'outside', label:'The Outside'}];
     - for (var room in rooms)
       label
-        input(type="radio", value=rooms[room].name, name="room", tabindex:room)
+        - if(room == 0)
+          input(type="radio", value=rooms[room].name, name="room", tabindex:room, checked)
+        - else
+          input(type="radio", value=rooms[room].name, name="room", tabindex:room)
         = rooms[room].label
       br
 

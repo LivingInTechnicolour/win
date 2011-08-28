@@ -35,9 +35,7 @@ function setNick(name, success){
 
 $(function(){
   now.ready(function() {
-      setNick('guest_'+Math.floor(Math.random()*10001), function(){
-        now.joinRoom('home');
-      });
+      //nothing to do here
   });
 });
 
