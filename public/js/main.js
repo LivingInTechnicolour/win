@@ -29,14 +29,10 @@ now.receiveMessage = function(name, message){
 };
 
 now.receiveStateUpdate = function(name, state) {
-    console.log("Name: " + name);
-    console.log(state);
     game.state[name] = state;
 };
 
 now.receiveState = function(room, char_name, state) {
-    console.log("Receiving room state...");
-    console.log(state);
     game.setRoomState(room, char_name, state);
 };
 
