@@ -21,6 +21,7 @@ function Character(args) {
     this.name = undefined;
     this.rect = new CollisionRect({'x': this.x, 'y': this.y, 'width': 32, 'height': 32, 'visible': true}); 
     this.collideables = args.collideables || [];
+    this.teleporters = args.teleporters || [];
     this.drawCollideables = false;
 }
 
@@ -110,6 +111,14 @@ Character.prototype = {
 	}
 	
 	this.move();
+	
+	for(t in this.teleporters) {
+	    if(!this.teleporters[t].action) {
+		if(this.rect.isColliding(this.teleporters[t].rect)) {
+		    this.teleporters[t].teleport();
+		}
+	    }
+	}
     },
     
     draw: function(context) {
@@ -118,6 +127,9 @@ Character.prototype = {
 		this.collideables[i].draw(context);
 	    }
 	}
+	//for(i in this.teleporters) {
+	    //this.teleporters[i].draw(context);
+	//}
 	context.drawImage(this.image, 
 			  this.avatarIndex*32 + this.currentAnimIndex*32, 
 			  this.facing*32,

@@ -15,25 +15,21 @@ CollisionRect.prototype = {
     isColliding: function(rect) {
 	if(rect.x >= this.x && rect.x <= (this.x + this.width)) {
 	    if(rect.y >= this.y && rect.y <= (this.y + this.height)) {
-		console.log('1');
 		return true;
 	    }
 	}
 	if(rect.bottomRight.x >= this.x && rect.bottomRight.x <= (this.x + this.width)) {
 	    if(rect.bottomRight.y >= this.y && rect.bottomRight.y <= (this.y + this.height)) {
-		console.log('2');
 		return true;
 	    }
 	}
 	if(rect.topRight.x >= this.x && rect.topRight.x <= (this.x + this.width)) {
 	    if(rect.topRight.y >= this.y && rect.topRight.y <= (this.y + this.height)) {
-		console.log('3');
 		return true;
 	    }
 	}
 	if(rect.bottomLeft.x >= this.x && rect.bottomLeft.x <= (this.x + this.width)) {
 	    if(rect.bottomLeft.y >= this.y && rect.bottomLeft.y <= (this.y + this.height)) {
-		console.log('4');
 		return true;
 	    }
 	}

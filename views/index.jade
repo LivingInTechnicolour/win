@@ -30,18 +30,11 @@
       |  Never show this again.
 
 #chooseroom.hidden
-  h1 Choose a room
-  form#roomform
-    - var rooms = [{name:'home', label:'Home'}, {name:'alternative', label:'Alternative'}, {name:'outside', label:'The Outside'}];
-    - for (var room in rooms)
-      label
-        - if(room == 0)
-          input(type="radio", value=rooms[room].name, name="room", tabindex:room, checked)
-        - else
-          input(type="radio", value=rooms[room].name, name="room", tabindex:room)
-        = rooms[room].label
-      br
-
+  h1 Welcome
+  br
+  p
+    span.name
+    
 #login.hidden
   hi Select a nickname
   input(type="text", name="username")

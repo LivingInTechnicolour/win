@@ -19,7 +19,7 @@ function GameCanvas(args) {
     this.avImg.src = '/img/chara.png';
 
     this.map = args.map;
-    console.log(map);
+
     this.loadMap(args.map);
     this.background = new Image();
     this.background.src = '/img/map.png';
@@ -93,13 +93,47 @@ GameCanvas.prototype = {
     loadMap: function(map) {
 	for(y in map) {
 	    for(x in map[y]) {
+		var x_pos = x*32;
+		var y_pos = y*32;
+		var rect = new CollisionRect({'x': x_pos, 'y': y_pos, 'width': 32, 'height': 32, 'visible': true});
 		if(map[y][x] == 1) {
-		    var x_pos = x*32;
-		    var y_pos = y*32;
-		    var rect = new CollisionRect({'x': x_pos, 'y': y_pos, 'width': 32, 'height': 32, 'visible': true});
 		    this.player.collideables.push(rect);
+		}
+		if(map[y][x] == 2) {
+		    var location = {};
+		    location.x = 300;
+		    location.y = 400;
+		    var tele = new Teleporter({'map': in_map, 
+					       'room': 'building1', 
+					       'rect': rect, 
+					       'game': this, 
+					       'img':'/img/mapin1.png',
+					       'location': location});
+		    this.player.teleporters.push(tele);
+		}
+		if(map[y][x] == 3) {
+		    var location = {};
+		    location.x = 500;
+		    location.y = 250;
+		    var tele = new Teleporter({'map': home_map, 
+					       'room': 'home', 
+					       'rect': rect, 
+					       'game': this, 
+					       'img':'/img/map.png',
+					       'location': location});
+		    this.player.teleporters.push(tele);
 		}
 	    }
 	}
+    },
+
+    changeRoom: function(name, map, img) {
+	this.player.collideables = [];
+	this.player.teleporters = [];
+	this.map = map;
+	this.loadMap(map);
+	this.room_name = name;
+	this.background = img;
+	now.joinRoom(name);
     }
 }
