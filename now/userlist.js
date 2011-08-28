@@ -24,7 +24,7 @@ UserList.prototype.add = function(user){
 
 UserList.prototype.create = function(cid, name){
     // The avatarindex is hardcoded for now. This will be used to select an avatar later.
-    var user = new User({'clientId':cid, 'name':name, 'x':x, 'y':y, 'avatarIndex':20});
+    var user = new User({'clientId':cid, 'name':name, 'x':500, 'y':250, 'avatarIndex':20});
     this.add(user);
     return user;
 };
