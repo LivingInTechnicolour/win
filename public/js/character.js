@@ -12,7 +12,6 @@ function Character(args) {
     this.animAccumulator = 0;
     this.currentAnimIndex = 0;
 
-    // A giant kludge... because js isn't a language for writing games
     this.keyState = {
 	'UP': 0,
 	'DOWN': 0,
@@ -46,7 +45,7 @@ Character.prototype = {
     
     update: function(time) {
 	this.animAccumulator += time;
-	console.log("ACC " + this.animAccumulator);
+
 	if(this.isMoving && this.animAccumulator > 150) {
 	    this.currentAnimIndex = !this.currentAnimIndex;
 	    this.animAccumulator = 0;
