@@ -51,7 +51,7 @@ nowstuff.setup = function(everyone){
 	}
     };
     
-    everyone.now.joinRoom = function(room){
+    everyone.now.joinRoom = function(name, room){
 	//get data
 	var cid = this.user.clientId;
 	var user = users.by_cid[cid];
@@ -63,12 +63,19 @@ nowstuff.setup = function(everyone){
 	
 	nowjs.getGroup(room).addUser(cid);
 	rooms.join_by_name(room, user);
+	
+
+	var state = user.room.getState();
+	console.log("State before " + JSON.stringify(state));
+
 	this.now.receiveMessage("SERVER", "You are now in " + user.room.name);
 	
 	var grp = nowjs.getGroup('currentUser');
 	grp.addUser(this.user.clientId);
 
 	var state = user.room.getState();
+	console.log("State after " + JSON.stringify(state));
+
 	grp.now.receiveState(room, user.name, state);
 	nowjs.getGroup(room).now.receiveStateUpdate(user.name, user.getState());
     };
@@ -89,7 +96,7 @@ nowstuff.setup = function(everyone){
 	cb(dirty_users);
     };
 
-    everyone.now.updateState = function(state) {
+    everyone.now.updateState = function(name, state) {
 	var cid = this.user.clientId;
 	var user = users.by_cid[cid];
 
@@ -98,7 +105,7 @@ nowstuff.setup = function(everyone){
 		return;
 	    }
 	   
-	    user.room.updateState(cid, state);
+	    user.room.updateState(user.clientId, state);
 	    nowjs.getGroup(user.room.name).now.receiveStateUpdate(user.name, state);
 	}
     };

@@ -33,7 +33,9 @@ GameCanvas.prototype = {
     
     setRoomState: function(room_name, char_name, state) {
 	this.room_name = room_name;
-	this.player.setName(char_name);
+	if(this.player.name == undefined) {
+	    this.player.setName(char_name);
+	}
 	this.state = state;
     },
     
@@ -42,7 +44,9 @@ GameCanvas.prototype = {
 	var time = new Date().getTime() - this.lastUpdate;
 	this.update(time);
 
-	now.updateState(this.player.getState());
+	if(this.player.name) {
+	    now.updateState(this.player.name, this.player.getState());
+	}
 
 	this.clear();
 	this.draw();
@@ -51,15 +55,15 @@ GameCanvas.prototype = {
     update: function(time) {
 	this.player.update(time);
 	this.lastUpdate = new Date().getTime();
+	console.log(this.player.name);
     },
     
     draw: function() {
 	if(this.state) {
 	    for(user in this.state) {
 		var state = this.state[user];
-		console.log(user == this.player.name);
 		if(user != this.player.name) {
-		    this.context.drawImage(this.avImg, 
+		    this.context.drawImage(this.avImg,
 					   state.avatarIndex*32 + state.currentAnimIndex*32, 
 					   state.facing*32,
 					   32, 32, 

@@ -72,6 +72,7 @@ User.prototype.update = function(state) {
     if(state.currentAnimIndex !== undefined) {
 	this.currentAnimIndex = state.currentAnimIndex;
     }
+    //console.log("Update user " + this.name + " with state " + state);
 };
 
 User.prototype.getState = function() {
