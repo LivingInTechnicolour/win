@@ -1,5 +1,5 @@
 var login_func = function(dialog){
-  setNick($('#loginform input').val());
+  setNick($(dialog).find('input').val());
   $(dialog).dialog('close');
   open_tut();
 };
