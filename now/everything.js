@@ -56,6 +56,7 @@ nowstuff.setup = function(everyone){
 	var cid = this.user.clientId;
 	var user = users.by_cid[cid];
 	
+	console.log("JOIN " + room);
 	//leave the old one if there is one
 	if (user.room !== undefined) {
 	    nowjs.getGroup(user.room.name).removeUser(cid);
