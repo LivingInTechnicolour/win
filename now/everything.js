@@ -70,7 +70,7 @@ nowstuff.setup = function(everyone){
 
 	this.now.receiveMessage("SERVER", "You are now in " + user.room.name);
 	
-	var grp = nowjs.getGroup('currentUser');
+	var grp = nowjs.getGroup(user.clientId);
 	grp.addUser(this.user.clientId);
 
 	var state = user.room.getState();

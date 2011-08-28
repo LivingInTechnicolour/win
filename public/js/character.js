@@ -19,12 +19,30 @@ function Character(args) {
 	'RIGHT': 0
     };
     this.name = undefined;
+    this.rect = new CollisionRect({'x': this.x, 'y': this.y, 'width': 32, 'height': 32, 'visible': true}); 
+    this.collideables = args.collideables || [];
+    this.drawCollideables = false;
 }
 
 Character.prototype = {
     move: function() {
+	if(this.collideables.length != 0) {
+	    for(object in this.collideables) {
+		var x = this.x + this.dx;
+		var y = this.y + this.dy;
+		var obj = this.collideables[object];
+		if(obj.isColliding(new CollisionRect({'x': x, 'y': this.y, 'width': 32, 'height': 32, 'visible': false}))) {
+		    this.dx = 0;
+		}
+		if(obj.isColliding(new CollisionRect({'x': this.x, 'y': y, 'width': 32, 'height': 32, 'visible': false}))) {
+		    this.dy = 0;
+		}
+	    }
+	}
 	this.x += this.dx;
 	this.y += this.dy;
+	this.rect.x += this.dx;
+	this.rect.y += this.dy;
     },
 
     getState: function() {
@@ -36,7 +54,7 @@ Character.prototype = {
 	    'currentAnimIndex': this.currentAnimIndex
 	};
     },
-    
+
     setName: function(name) {
 	this.name = name;
     },
@@ -90,11 +108,16 @@ Character.prototype = {
 	    this.setDirection('LEFT');
 	    this.isMoving = true;
 	}
-
+	
 	this.move();
     },
     
     draw: function(context) {
+	if(this.drawCollideables) {
+	    for(i in this.collideables) {
+		this.collideables[i].draw(context);
+	    }
+	}
 	context.drawImage(this.image, 
 			  this.avatarIndex*32 + this.currentAnimIndex*32, 
 			  this.facing*32,

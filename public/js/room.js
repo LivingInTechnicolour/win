@@ -18,6 +18,12 @@ function GameCanvas(args) {
     this.avImg = new Image();
     this.avImg.src = '/img/chara.png';
 
+    this.map = args.map;
+    console.log(map);
+    this.loadMap(args.map);
+    this.background = new Image();
+    this.background.src = '/img/map.png';
+
     $(document).keyup($.proxy(this.keyUp, this));
     $(document).keydown($.proxy(this.keyDown, this));
 }
@@ -55,10 +61,10 @@ GameCanvas.prototype = {
     update: function(time) {
 	this.player.update(time);
 	this.lastUpdate = new Date().getTime();
-	console.log(this.player.name);
     },
     
     draw: function() {
+	this.context.drawImage(this.background, 0, 0);
 	if(this.state) {
 	    for(user in this.state) {
 		var state = this.state[user];
@@ -82,5 +88,18 @@ GameCanvas.prototype = {
 
     keyUp: function(evt) {
 	return this.player.keyUp(evt);
+    },
+
+    loadMap: function(map) {
+	for(y in map) {
+	    for(x in map[y]) {
+		if(map[y][x] == 1) {
+		    var x_pos = x*32;
+		    var y_pos = y*32;
+		    var rect = new CollisionRect({'x': x_pos, 'y': y_pos, 'width': 32, 'height': 32, 'visible': true});
+		    this.player.collideables.push(rect);
+		}
+	    }
+	}
     }
 }
