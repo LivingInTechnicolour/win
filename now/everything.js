@@ -109,6 +109,7 @@ nowstuff.setup = function(everyone){
     //get data
     var cid = this.user.clientId;
     var user = users.by_cid[cid];
-    nowjs.getGroup(user.room.name).now.receiveMessage(user.name, msg);
+    if(user.room)
+      nowjs.getGroup(user.room.name).now.receiveMessage(user.name, msg);
   }
 }
