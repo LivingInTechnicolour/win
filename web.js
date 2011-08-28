@@ -36,6 +36,11 @@ app.get('/', function(req, res) {
   res.render('index', data);
 });
 
+//just for fun - this lets blitz rush us!
+app.get('/mu-d0437295-e28d95f2-6f05c1ab-e26fb0a6 ', function(req,res){
+  res.send('42');
+});
+
 app.get('/notutorial', function(req, res){
   res.cookie('hide_tut', 'yes', {maxAge: 3*365*24*60*60*1000}); //3 years?
   res.send('ok');
