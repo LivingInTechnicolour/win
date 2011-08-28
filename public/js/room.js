@@ -123,6 +123,43 @@ GameCanvas.prototype = {
 					       'location': location});
 		    this.player.teleporters.push(tele);
 		}
+		if(map[y][x] == 4) {
+		    var location = {};
+		    location.x = 300;
+		    location.y = 400;
+		    var tele = new Teleporter({'map': in_map, 
+					       'room': 'building2', 
+					       'rect': rect, 
+					       'game': this, 
+					       'img':'/img/mapin1.png',
+					       'location': location});
+		    this.player.teleporters.push(tele);
+		}
+		if(map[y][x] == 5) {
+		    var location = {};
+		    location.x = 300;
+		    location.y = 400;
+		    var tele = new Teleporter({'map': in_map, 
+					       'room': 'building3', 
+					       'rect': rect, 
+					       'game': this, 
+					       'img':'/img/mapin1.png',
+					       'location': location});
+		    this.player.teleporters.push(tele);
+		}
+		if(map[y][x] == 6) {
+		    var location = {};
+		    location.x = 300;
+		    location.y = 400;
+		    var tele = new Teleporter({'map': in_map, 
+					       'room': 'building4', 
+					       'rect': rect, 
+					       'game': this, 
+					       'img':'/img/mapin1.png',
+					       'location': location});
+		    this.player.teleporters.push(tele);
+		}
+
 	    }
 	}
     },
