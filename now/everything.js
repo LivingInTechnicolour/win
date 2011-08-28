@@ -60,6 +60,8 @@ nowstuff.setup = function(everyone){
 	if (user.room !== undefined) {
 	    nowjs.getGroup(user.room.name).removeUser(cid);
 	    nowjs.getGroup(user.room.name).now.removeUser(user.name);
+	    nowjs.getGroup(user.room.name).now.receiveMessage("SERVER", user.name + " entered " + room);
+
 	}
 	
 	nowjs.getGroup(room).addUser(cid);
