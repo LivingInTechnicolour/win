@@ -33,7 +33,6 @@ GameCanvas.prototype = {
     },
 
     update: function(time) {
-	console.log("Time " + time);
 	this.player.update(time);
 	this.lastUpdate = new Date().getTime();
     },
