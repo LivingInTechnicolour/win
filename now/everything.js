@@ -51,7 +51,7 @@ nowstuff.setup = function(everyone){
 	}
     };
     
-    everyone.now.joinRoom = function(name, room){
+    everyone.now.joinRoom = function(room){
 	//get data
 	var cid = this.user.clientId;
 	var user = users.by_cid[cid];
@@ -78,22 +78,6 @@ nowstuff.setup = function(everyone){
 
 	grp.now.receiveState(room, user.name, state);
 	nowjs.getGroup(room).now.receiveStateUpdate(user.name, user.getState());
-    };
-    
-    // TODO: Kill polling mechanism
-    everyone.now.fetch = function(cb){
-	//get data
-	var cid = this.user.clientId;
-	var user = users.by_cid[cid];
-	
-	var ulist = user.room.users;
-	var dirty_users = [];
-	for (var i=0, length = ulist.length; i < length; i++){
-	    if(ulist[i].dirty){
-		dirty_users.push(ulist[i].data);
-	    }
-	}
-	cb(dirty_users);
     };
 
     everyone.now.updateState = function(name, state) {
