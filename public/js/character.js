@@ -19,10 +19,12 @@ function Character(args) {
 	'RIGHT': 0
     };
     this.name = undefined;
-    this.rect = new CollisionRect({'x': this.x, 'y': this.y, 'width': 32, 'height': 32, 'visible': true}); 
+    this.rect = new CollisionRect({'x': (this.x), 'y': (this.y), 'width': 32, 'height': 32, 'visible': true}); 
+
     this.collideables = args.collideables || [];
     this.teleporters = args.teleporters || [];
     this.drawCollideables = false;
+    this.drawTeleporters = false;
 }
 
 Character.prototype = {
@@ -32,10 +34,9 @@ Character.prototype = {
 		var x = this.x + this.dx;
 		var y = this.y + this.dy;
 		var obj = this.collideables[object];
-		if(obj.isColliding(new CollisionRect({'x': x, 'y': this.y, 'width': 32, 'height': 32, 'visible': false}))) {
-		    this.dx = 0;
+		if(obj.isColliding(new CollisionRect({'x': x+5, 'y': this.y+20, 'width': 22, 'height': 22, 'visible': false}))) {		    this.dx = 0;
 		}
-		if(obj.isColliding(new CollisionRect({'x': this.x, 'y': y, 'width': 32, 'height': 32, 'visible': false}))) {
+		if(obj.isColliding(new CollisionRect({'x': this.x+5, 'y': y+20, 'width': 22, 'height': 22, 'visible': false}))) {
 		    this.dy = 0;
 		}
 	    }
@@ -111,12 +112,14 @@ Character.prototype = {
 	}
 	
 	this.move();
-	
+
 	for(t in this.teleporters) {
 	    if(!this.teleporters[t].action) {
 		if(this.rect.isColliding(this.teleporters[t].rect)) {
 		    this.teleporters[t].teleport();
 		}
+	    } else if(!this.rect.isColliding(this.teleporters[t].rect)) {
+		this.teleporters[t].action = false;
 	    }
 	}
     },
@@ -127,9 +130,12 @@ Character.prototype = {
 		this.collideables[i].draw(context);
 	    }
 	}
-	//for(i in this.teleporters) {
-	    //this.teleporters[i].draw(context);
-	//}
+	if(this.drawTeleporters) {
+	    for(i in this.teleporters) {
+		this.teleporters[i].draw(context);
+	    }
+	}
+	this.rect.draw(context);
 	context.drawImage(this.image, 
 			  this.avatarIndex*32 + this.currentAnimIndex*32, 
 			  this.facing*32,

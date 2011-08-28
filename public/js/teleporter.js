@@ -14,12 +14,16 @@ function Teleporter(args) {
 Teleporter.prototype = {
     teleport: function() {
 	this.action = true;
-	game.changeRoom(this.room, this.map, this.img);
-	game.player.x = this.location.x;
-	game.player.y = this.location.y;
-	game.player.rect.x = this.location.x;
-	game.player.rect.y = this.location.y;
-	this.action = false;
+	var cb = function() {
+	    game.changeRoom(this.room, this.map, this.img);
+	    game.player.x = this.location.x;
+	    game.player.y = this.location.y;
+	    game.player.rect.x = this.location.x;
+	    game.player.rect.y = this.location.y;
+	    this.action = false;
+	}
+	
+	chooseroom(this.room, $.proxy(cb, this));
     },
 
     draw: function(context) {

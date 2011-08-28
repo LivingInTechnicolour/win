@@ -1,13 +1,14 @@
 // for some reason events in the input and in the document are
 // separate... don't know why, but I want to keep that behavior :)
 // [{name:'home', label:'Home'}, {name:'alternative', label:'Alternative'}, {name:'outside', label:'The Outside'}];
-function chooseroom(name){
+function chooseroom(name, cb){
     $('#chooseroom').dialog({
 	title: 'Enter ' + name + '?',
 	modal:true,
 	buttons:{
-	    Yes:function(){
-		now.joinRoom(name);
+	    Yes:function() {
+		console.log("CLICK");
+		cb();
 		$(this).dialog('close');
 	    },
 	    No:function() {
