@@ -135,7 +135,7 @@ Character.prototype = {
 		this.teleporters[i].draw(context);
 	    }
 	}
-	this.rect.draw(context);
+	
 	context.drawImage(this.image, 
 			  this.avatarIndex*32 + this.currentAnimIndex*32, 
 			  this.facing*32,
