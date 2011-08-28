@@ -6,4 +6,4 @@ else
 echo "node inspector already running"
 fi
 
-NODE_ENV=development nodemon web.js --debug
+NODE_ENV=development nodemon server.js --debug
