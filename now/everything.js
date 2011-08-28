@@ -71,12 +71,21 @@ nowstuff.setup = function(everyone){
     //maybe add a callback; we have to pass it all the user objects in that room
   };
   
+  //TODO: run this periodically and instead of letting users poll,
+  //push this data to them - so we'll have `update_users` on the client side
   everyone.now.fetch = function(cb){
     //get data
     var cid = this.user.clientId;
     var user = users.by_cid[cid];
     
-    cb(user.room);
+    var ulist = user.room.users;
+    var dirty_users = [];
+    for (var i=0, length = ulist.length; i < length; i++){
+      if(ulist[i].dirty){
+        dirty_users.push(ulist[i].data);
+      }
+    }
+    cb(dirty_users);
   };
   
   everyone.now.moveTo = function(x,y){
@@ -102,7 +111,8 @@ nowstuff.setup = function(everyone){
     var cid = this.user.clientId;
     var user = users.by_cid[cid];
     //kill user
-    users.remove(user);
+    if(user)
+      users.remove(user);
   });
   
   everyone.now.distributeMessage = function(msg){
