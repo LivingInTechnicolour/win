@@ -9,4 +9,12 @@ var Room = function(name){
   this.users = new UserList();//just add and remove users directly
 };
 
+Room.prototype = {
+    updateState: function(cid, state) {
+	if(this.users.by_cid[cid]) {
+	    this.users.by_cid[cid].update(state);
+	}
+    }
+};
+
 module.exports = Room;

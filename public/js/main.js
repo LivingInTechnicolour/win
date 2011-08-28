@@ -26,6 +26,11 @@ now.receiveMessage = function(name, message){
   }
 };
 
+now.recieveState = function(name, state) {
+    console.log("Name: " + name);
+    console.log("State: " + state);
+};
+
 function setNick(name, success){
   now.authenticate(name, success, function(){
       //when it fails, do nothing.. whatever
@@ -35,12 +40,12 @@ function setNick(name, success){
 
 $(function(){
   now.ready(function() {
-      //nothing to do here
+      var game = new GameCanvas({'width': 1000, 'height': 500, 'canvasId': 'app'});
+      game.gameLoop(now.updateState);
   });
 });
 
 $('#chatform').submit(function(e){
-
   var input = document.getElementById('input');
   var msg = input.value;
 
@@ -57,7 +62,8 @@ $('#chatform').submit(function(e){
   $('#input').focus();
   input.value = '';
   e.preventDefault();
+
 });
 
-var game = new GameCanvas({'width': 1000, 'height': 500, 'canvasId': 'app'});
-game.gameLoop();
+
+

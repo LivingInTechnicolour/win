@@ -13,6 +13,7 @@ function GameCanvas(args) {
 
     $(document).keyup($.proxy(this.keyUp, this));
     $(document).keydown($.proxy(this.keyDown, this));
+    this.bit = 1;
 }
 
 GameCanvas.prototype = {
@@ -28,6 +29,11 @@ GameCanvas.prototype = {
 	setTimeout(jQuery.proxy(this.gameLoop, this), this.refreshRate);
 	var time = new Date().getTime() - this.lastUpdate;
 	this.update(time);
+	if(this.bit < 10) {
+	    console.log(this.player.getState());
+	    this.bit++;
+	}
+	now.updateState(this.player.getState());
 	this.clear();
 	this.draw();
     },

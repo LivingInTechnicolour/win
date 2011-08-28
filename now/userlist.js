@@ -9,7 +9,7 @@ var UserList = function(){
     this.by_name = {};
 };
 
-UserList.prototype.remove = function(user){
+UserList.prototype.remove = function(user) {
     delete this.by_cid[user.clientId];
     delete this.by_name[user.name];
     user.remove_list(this);

@@ -26,6 +26,16 @@ Character.prototype = {
 	this.y += this.dy;
     },
 
+    getState: function() {
+	return {
+	    'x': this.x,
+	    'y': this.y,
+	    'avatarIndex': this.avatarIndex,
+	    'facing': this.facing,
+	    'currentAnimIndex': this.currentAnimIndex
+	};
+    },
+    
     setDirection: function(direction) {
 	switch(direction) {
 	case 'UP':

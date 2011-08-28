@@ -45,4 +45,33 @@ User.prototype.remove_list = function(list_to_remove){
     }
 };
 
+User.prototype.compare = function(user) {
+    if(this.x == user.x &&
+       this.y == user.y &&
+       this.avatarIndex == user.avatarIndex &&
+       this.facing == user.facing &&
+       this.currentAnimIndex == user.currentAnimIndex) {
+	return true;
+    }
+    return false;
+};
+
+User.prototype.update = function(state) {
+    if(state.x !== undefined) {
+	this.x = state.x;
+    }
+    if(state.y !== undefined) {
+	this.y = state.y;
+    }
+    if(state.avatarIndex !== undefined) {
+	this.avatarIndex = state.avatarIndex;
+    }
+    if(state.facing !== undefined) {
+	this.facing = state.facing;
+    }
+    if(state.currentAnimIndex !== undefined) {
+	this.currentAnimIndex = state.currentAnimIndex;
+    }
+};
+
 module.exports = User;
