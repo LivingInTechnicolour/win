@@ -69,7 +69,7 @@ nowstuff.setup = function(everyone){
 	grp.addUser(this.user.clientId);
 
 	var state = user.room.getState();
-	grp.now.receiveState(room, state);
+	grp.now.receiveState(room, user.name, state);
 	nowjs.getGroup(room).now.receiveStateUpdate(user.name, user.getState());
     };
     

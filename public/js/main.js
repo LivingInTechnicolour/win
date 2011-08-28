@@ -11,6 +11,8 @@ function has_scrollbar(elem) {
   else
     return false;
 } 
+     
+game = new GameCanvas({'width': 1000, 'height': 500, 'canvasId': 'app'});
 
 now.receiveMessage = function(name, message){
   var elem = $('#history');
@@ -27,13 +29,15 @@ now.receiveMessage = function(name, message){
 };
 
 now.receiveStateUpdate = function(name, state) {
-    console.log("Name: " + name);
-    console.log("State: " + state);
+    //console.log("Name: " + name);
+    //console.log("State: " + state);
+    game.state[name] = state;
 };
 
-now.receiveState = function(room, state) {
-    console.log("Receiving room state...");
-    console.log(state);
+now.receiveState = function(room, char_name, state) {
+    //console.log("Receiving room state...");
+    //console.log(state);
+    game.setRoomState(room, char_name, state);
 };
 
 function setNick(name, success){
@@ -45,7 +49,6 @@ function setNick(name, success){
 
 $(function(){
   now.ready(function() {
-      var game = new GameCanvas({'width': 1000, 'height': 500, 'canvasId': 'app'});
       game.gameLoop(now.updateState);
   });
 });

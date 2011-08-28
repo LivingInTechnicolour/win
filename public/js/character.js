@@ -18,6 +18,7 @@ function Character(args) {
 	'LEFT': 0,
 	'RIGHT': 0
     };
+    this.name = undefined;
 }
 
 Character.prototype = {
@@ -36,6 +37,10 @@ Character.prototype = {
 	};
     },
     
+    setName: function(name) {
+	this.name = name;
+    },
+
     setDirection: function(direction) {
 	switch(direction) {
 	case 'UP':

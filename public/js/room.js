@@ -10,10 +10,16 @@ function GameCanvas(args) {
     this.player = new Character({'x':500, 'y':250, 'avatarIndex':20});
 
     this.lastUpdate = new Date().getTime();
+    
+    this.state = undefined;
+
+    this.room_name = undefined;
+    
+    this.avImg = new Image();
+    this.avImg.src = '/img/chara.png';
 
     $(document).keyup($.proxy(this.keyUp, this));
     $(document).keydown($.proxy(this.keyDown, this));
-    this.bit = 1;
 }
 
 GameCanvas.prototype = {
@@ -24,16 +30,20 @@ GameCanvas.prototype = {
 	this.context.closePath();
 	this.context.fill();
     },
-
+    
+    setRoomState: function(room_name, char_name, state) {
+	this.room_name = room_name;
+	this.player.setName(char_name);
+	this.state = state;
+    },
+    
     gameLoop: function() {
 	setTimeout(jQuery.proxy(this.gameLoop, this), this.refreshRate);
 	var time = new Date().getTime() - this.lastUpdate;
 	this.update(time);
-	if(this.bit < 10) {
-	    console.log(this.player.getState());
-	    this.bit++;
-	}
+
 	now.updateState(this.player.getState());
+
 	this.clear();
 	this.draw();
     },
@@ -44,6 +54,21 @@ GameCanvas.prototype = {
     },
     
     draw: function() {
+	if(this.state) {
+	    for(user in this.state) {
+		var state = this.state[user];
+		console.log(user == this.player.name);
+		if(user != this.player.name) {
+		    this.context.drawImage(this.avImg, 
+					   state.avatarIndex*32 + state.currentAnimIndex*32, 
+					   state.facing*32,
+					   32, 32, 
+					   state.x, 
+					   state.y, 
+					   32, 32);
+		}
+	    }
+	}
 	this.player.draw(this.context);
     },
 
