@@ -6,9 +6,6 @@ var express = require('express')
 var app = express.createServer();
 
 var everyone = nowjs.initialize(app, {
-  'socketio': {
-    transports:['htmlfile', 'xhr-polling', 'jsonp-polling']
-  },
   "clientWrite" : true//can we set this to false and still have a way
   //for the server to run something on the client???
   //we just don't want the client to be messing with their state variables
