@@ -90,10 +90,6 @@ nowstuff.setup = function(everyone){
 	var cid = this.user.clientId;
 	var user = users.by_cid[cid];
 
-	if(!user) {
-	    console.log("USER UNDEFINED");
-	}
-
 	if(user && user.room) {
 	    if(user.compare(state)) {
 		return;
