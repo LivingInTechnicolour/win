@@ -16,12 +16,12 @@ function login_dialog(then_join_room){
     modal: true,
     closeOnEscape: false,
     buttons: {
-      Enter: function(){ login_func(this); }
+      Enter: function(){ login_func(this, then_join_room); }
     },
     open: function(event, ui){
       $(".ui-dialog-titlebar-close").hide();
       var dialog = this;
-      $(dialog).keyup(function(e) {
+      $(dialog).unbind('keyup').keyup(function(e) {
         if (e.keyCode == 13) {
           login_func(dialog, then_join_room);
           e.preventDefault();
