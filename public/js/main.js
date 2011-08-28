@@ -65,7 +65,7 @@ now.receiveMessage = function(name, message){
 };
 
 now.removeUser = function(name) {
-    //delete game[name];
+    delete game.state[name];
 };
 
 now.receiveStateUpdate = function(name, state) {

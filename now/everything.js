@@ -59,8 +59,7 @@ nowstuff.setup = function(everyone){
 	//leave the old one if there is one
 	if (user.room !== undefined) {
 	    nowjs.getGroup(user.room.name).removeUser(cid);
-	    nowjs.getGroup(user.room.name).now.removeUser(this.user.name);
-	    console.log("FOOO");
+	    nowjs.getGroup(user.room.name).now.removeUser(user.name);
 	}
 	
 	nowjs.getGroup(room).addUser(cid);
