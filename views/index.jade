@@ -1,5 +1,14 @@
 #warpper
-  h1 Node Hotel
+  h1.left.margin-right Node-room
+  #explanation
+    span.hotkey J
+    |  to join room;
+    span.hotkey N
+    |  to set nickname;
+    span.hotkey TAB
+    |  to talk;
+    span.hotkey arrows
+    |  to move
   canvas#app(width="1000px", height="500px")
   #chat
     #history
@@ -34,6 +43,6 @@
       br
 
 #login.hidden
-  hi Select a username
+  hi Select a nickname
   input(type="text", name="username")
 

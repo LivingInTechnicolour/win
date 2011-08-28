@@ -40,8 +40,7 @@ nowstuff.setup = function(everyone){
         user.rename(name);
       }
       
-      this.now.receiveMessage("SERVER", "Your nickname is now " + name
-                            + ". To change it, press n.");
+      this.now.receiveMessage("SERVER", "Your nickname is now " + name);
       
       if (typeof(success) == 'function') {
         success();
@@ -64,8 +63,7 @@ nowstuff.setup = function(everyone){
     
     nowjs.getGroup(room).addUser(cid);
     rooms.join_by_name(room, user);
-    this.now.receiveMessage("SERVER", "You are now in " + user.room.name
-                          + ". Press j to join another room.");
+    this.now.receiveMessage("SERVER", "You are now in " + user.room.name);
     
     //TODO: Francis, you would want to change the room on the screen here!
     //maybe add a callback; we have to pass it all the user objects in that room
