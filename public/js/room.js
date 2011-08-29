@@ -7,7 +7,9 @@ function GameCanvas(args) {
 
     this.context = canvas.getContext('2d');
 
-    this.player = new Character({'x':500, 'y':250, 'avatarIndex':20});
+    var aIndex = Math.floor(Math.random()*10)*2;
+    
+    this.player = new Character({'x':500, 'y':250, 'avatarIndex':aIndex});
 
     this.lastUpdate = new Date().getTime();
     
@@ -36,7 +38,7 @@ GameCanvas.prototype = {
 	this.context.closePath();
 	this.context.fill();
     },
-    
+
     setRoomState: function(room_name, char_name, state) {
 	this.room_name = room_name;
 	if(this.player.name == undefined) {
@@ -159,7 +161,6 @@ GameCanvas.prototype = {
 					       'location': location});
 		    this.player.teleporters.push(tele);
 		}
-
 	    }
 	}
     },
