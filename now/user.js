@@ -11,6 +11,7 @@ var User = function(args){
     this.currentAnimIndex = 0;
     this.room = undefined;//a reference to the room object
     this.lists = [];//this includes the user list for room the user is in
+    this.lastUpdate = new Date().getTime();
 };
 
 //remove all links to this user

@@ -15,6 +15,31 @@ var users = new UserList();
 //we only really have one RoomList
 var rooms = new RoomList;
 
+
+
+// Kicks users who have been inactive for more than 5 minutes. 
+// This is a guaranteed fix to the lingering users problem.
+checkUserTimeout = function() {
+    var rms = rooms.by_name;
+    for(r in rms) {
+	var usrs = rms[r].users.by_name;
+	console.log("Ulist " + usrs.remove);
+	for(u in usrs) {
+	    var time = new Date().getTime();
+	    var user = usrs[u];
+	    if((time - user.lastUpdate) > 300000 /*5 minutes in ms*/) {
+		console.log("kicking user " + u);
+		rms[r].users.remove(user);
+		nowjs.getGroup(user.room.name).now.removeUser(user.name);
+		nowjs.getGroup(user.room.name).now.receiveMessage("SERVER", user.name + " quit.");
+	    }
+	}
+    }
+    setTimeout(checkUserTimeout, 5000);
+};
+
+checkUserTimeout();
+
 //define all the server side functions we would need to call from the client
 nowstuff.setup = function(everyone){
     
@@ -87,12 +112,14 @@ nowstuff.setup = function(everyone){
     everyone.now.updateState = function(name, state) {
 	var cid = this.user.clientId;
 	var user = users.by_cid[cid];
+	
 
 	if(user && user.room) {
 	    if(user.equals(state)) {
 		return;
 	    }
-	   
+
+	    user.lastUpdate = new Date().getTime();
 	    user.room.updateState(user.clientId, state);
 	    nowjs.getGroup(user.room.name).now.receiveStateUpdate(user.name, state);
 	}
@@ -115,6 +142,7 @@ nowstuff.setup = function(everyone){
 	//get data
 	var cid = this.user.clientId;
 	var user = users.by_cid[cid];
+	user.lastUpdate = new Date().getTime();
 	if(user.room)
 	    nowjs.getGroup(user.room.name).now.receiveMessage(user.name, msg);
     }

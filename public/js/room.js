@@ -25,7 +25,7 @@ function GameCanvas(args) {
     this.loadMap(args.map);
     this.background = new Image();
     this.background.src = '/img/map.png';
-
+    this.addBounds();
     $(document).keyup($.proxy(this.keyUp, this));
     $(document).keydown($.proxy(this.keyDown, this));
 }
@@ -37,6 +37,13 @@ GameCanvas.prototype = {
 	this.context.rect(0, 0, this.width, this.height);
 	this.context.closePath();
 	this.context.fill();
+    },
+
+    addBounds: function() {
+	this.player.collideables.push(new CollisionRect({'x': -32, 'y': -32, 'width': 32, 'height': 576, 'visible': false}));
+	this.player.collideables.push(new CollisionRect({'x': 1024, 'y': -32, 'width': 32, 'height': 576, 'visible': false}));
+	this.player.collideables.push(new CollisionRect({'x': -32, 'y': -32, 'width': 1088, 'height': 32, 'visible': false}));
+	this.player.collideables.push(new CollisionRect({'x': -32, 'y': 512, 'width': 1088, 'height': 32, 'visible': false}));
     },
 
     setRoomState: function(room_name, char_name, state) {

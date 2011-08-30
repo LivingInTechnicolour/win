@@ -34,9 +34,10 @@ Character.prototype = {
 		var x = this.x + this.dx;
 		var y = this.y + this.dy;
 		var obj = this.collideables[object];
-		if(obj.isColliding(new CollisionRect({'x': x+5, 'y': this.y+20, 'width': 22, 'height': 22, 'visible': false}))) {		    this.dx = 0;
+		if(obj.isColliding(new CollisionRect({'x': x+5, 'y': this.y+20, 'width': 22, 'height': 12, 'visible': false}))) {
+		    this.dx = 0;
 		}
-		if(obj.isColliding(new CollisionRect({'x': this.x+5, 'y': y+20, 'width': 22, 'height': 22, 'visible': false}))) {
+		if(obj.isColliding(new CollisionRect({'x': this.x+5, 'y': y+20, 'width': 22, 'height': 12, 'visible': false}))) {
 		    this.dy = 0;
 		}
 	    }
