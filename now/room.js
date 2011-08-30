@@ -10,15 +10,19 @@ var Room = function(name){
 };
 
 Room.prototype = {
-    updateState: function(cid, state) {
-	if(this.users.by_cid[cid]) {
+  updateState: function(cid, state) {
+	  if(this.users.by_cid[cid]) {
 	    this.users.by_cid[cid].update(state);
-	}
-    },
-
-    getState: function() {
-	return this.users.getState();
     }
+  },
+
+  getState: function() {
+	  return this.users.getState();
+  },
+
+  quit: function(user) {
+    //TODO: destroy this room if it now empty!
+  }
 };
 
 module.exports = Room;
