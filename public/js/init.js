@@ -12,7 +12,7 @@ var login_func = function(dialog, then_join_room){
 
 function login_dialog(then_join_room){
     $('#login').dialog({
-	title: "Login",
+	title: "Enter your nickname",
 	modal: true,
 	closeOnEscape: false,
 	buttons: {
@@ -34,7 +34,7 @@ function login_dialog(then_join_room){
 function open_tut(){
     if($('#tutorial').length)
 	$('#tutorial').dialog({ 
-	    title: "Tutorial", 
+	    title: "Welocome to RPG Node!", 
 	    modal: true, 
 	    buttons:
             {
