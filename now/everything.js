@@ -18,12 +18,11 @@ var rooms = new RoomList;
 
 
 // Kicks users who have been inactive for more than 5 minutes. 
-// This is a guaranteed fix to the lingering users problem.
+// This is kind of a lame solution. 
 checkUserTimeout = function() {
     var rms = rooms.by_name;
     for(r in rms) {
 	var usrs = rms[r].users.by_name;
-	console.log("Ulist " + usrs.remove);
 	for(u in usrs) {
 	    var time = new Date().getTime();
 	    var user = usrs[u];
