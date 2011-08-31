@@ -18,7 +18,6 @@ var rooms = new RoomList;
 
 
 // Kicks users who have been inactive for more than 5 minutes. 
-// This is kind of a lame solution. 
 checkUserTimeout = function() {
     var rms = rooms.by_name;
     for(r in rms) {
@@ -26,15 +25,16 @@ checkUserTimeout = function() {
 	for(u in usrs) {
 	    var time = new Date().getTime();
 	    var user = usrs[u];
-	    if((time - user.lastUpdate) > 300000 /*5 minutes in ms*/) {
+	    if((time - user.lastUpdate) > 600000 /*10 minutes in ms*/) {
 		console.log("kicking user " + u);
 		rms[r].users.remove(user);
 		nowjs.getGroup(user.room.name).now.removeUser(user.name);
-		nowjs.getGroup(user.room.name).now.receiveMessage("SERVER", user.name + " quit.");
+		nowjs.getGroup(user.room.name).now.receiveMessage("SERVER", user.name + " timed out.");
 	    }
 	}
     }
-    setTimeout(checkUserTimeout, 5000);
+    // Check for timeouts every minute
+    setTimeout(checkUserTimeout, 60000);
 };
 
 checkUserTimeout();
