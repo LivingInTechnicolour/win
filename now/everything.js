@@ -43,72 +43,72 @@ checkUserTimeout();
 nowstuff.setup = function(everyone){
     
     everyone.now.authenticate = function(name, success, fail){
-	//get data
-	var cid = this.user.clientId;
-	var user = users.by_cid[cid];
-	
-	//set name to the same value it was before? done.
-	if (user !== undefined && user.name == name){
-	    return;
-	}
-	
-	//add the user only if they are new (name not taken) and not trying to be SERVER
-	if ( name != 'SERVER' && name != 'SERVER ERROR' 
-             && users.by_name[name] === undefined){
-	    //new user!
-	    if (user == undefined){
-		users.create(cid, name);
-	    }
-	    //old user!
-	    else {
-		user.rename(name);
-	    }
-	    
-	    this.now.receiveMessage("SERVER", "Your nickname is now " + name);
-	    
-	    if (typeof(success) == 'function') {
-		success();
-	    }
-	} else {
-	    this.now.receiveMessage("SERVER ERROR", "This nickname is taken. Type /nick <new name> to choose anytoher one");
-	    fail();
-	}
+      //get data
+      var cid = this.user.clientId;
+      var user = users.by_cid[cid];
+      
+      //set name to the same value it was before? done.
+      if (user !== undefined && user.name == name){
+          return;
+      }
+      
+      //add the user only if they are new (name not taken) and not trying to be SERVER
+      if ( name != 'SERVER' && name != 'SERVER ERROR' 
+                 && users.by_name[name] === undefined){
+          //new user!
+          if (user == undefined){
+            users.create(cid, name);
+          }
+          //old user!
+          else {
+            user.rename(name);
+          }
+          
+          this.now.receiveMessage("SERVER", "Your nickname is now " + name);
+          
+          if (typeof(success) == 'function') {
+            success();
+          }
+      } else {
+          this.now.receiveMessage("SERVER ERROR", "This nickname is taken. Type /nick <new name> to choose anytoher one");
+          fail();
+      }
     };
     
     everyone.now.joinRoom = function(room){
-	//get data
-	var cid = this.user.clientId;
-	var user = users.by_cid[cid];
-	
-	console.log("JOIN " + room);
-	//leave the old one if there is one
-	if (user.room !== undefined) {
-	    nowjs.getGroup(user.room.name).removeUser(cid);
-	    nowjs.getGroup(user.room.name).now.removeUser(user.name);
-	    nowjs.getGroup(user.room.name).now.receiveMessage("SERVER", user.name + " entered " + room);
+      //get data
+      var cid = this.user.clientId;
+      var user = users.by_cid[cid];
 
-	}
-	
-	nowjs.getGroup(room).addUser(cid);
-	rooms.join_by_name(room, user);
-	
+      console.log("JOIN " + room);
+      //leave the old one if there is one
+      if (user.room !== undefined) {
+          nowjs.getGroup(user.room.name).removeUser(cid);
+          nowjs.getGroup(user.room.name).now.removeUser(user.name);
+          nowjs.getGroup(user.room.name).now.receiveMessage("SERVER", user.name + " entered " + room);
+      }
 
-	var state = user.room.getState();
-	console.log("State before " + JSON.stringify(state));
+      nowjs.getGroup(room).addUser(cid);
+      rooms.join_by_name(room, user);
 
-	this.now.receiveMessage("SERVER", "You are now in " + user.room.name);
-	
-	var grp = nowjs.getGroup(user.clientId);
-	grp.addUser(this.user.clientId);
 
-	var state = user.room.getState();
-	console.log("State after " + JSON.stringify(state));
+      var state = user.room.getState();
+      console.log("State before " + JSON.stringify(state));
 
-	grp.now.receiveState(room, user.name, state);
-	nowjs.getGroup(room).now.receiveStateUpdate(user.name, user.getState());
+      this.now.receiveMessage("SERVER", "You are now in " + user.room.name);
+
+      var grp = nowjs.getGroup(user.clientId);
+      grp.addUser(this.user.clientId);
+
+      var state = user.room.getState();
+      console.log("State after " + JSON.stringify(state));
+
+      grp.now.receiveState(room, user.name, state);
+      nowjs.getGroup(room).now.receiveStateUpdate(user.name, user.getState());
     };
 
     everyone.now.updateState = function(name, state) {
+<<<<<<< HEAD
 	var cid = this.user.clientId;
 	var user = users.by_cid[cid];
 	
@@ -122,19 +122,34 @@ nowstuff.setup = function(everyone){
 	    user.room.updateState(user.clientId, state);
 	    nowjs.getGroup(user.room.name).now.receiveStateUpdate(user.name, state);
 	}
+=======
+      var cid = this.user.clientId;
+      var user = users.by_cid[cid];
+
+      if(user && user.room) {
+        if(user.equals(state)) {
+          return;
+        }
+         
+        user.room.updateState(user.clientId, state);
+        nowjs.getGroup(user.room.name).now.receiveStateUpdate(user.name, state);
+      }
+>>>>>>> 1d9b5f78920cd9ddd5ac28a3d4a76f6c9d31a765
     };
-    
+        
     nowjs.on('connect', function () {
-	this.now.receiveMessage('SERVER', 'Welcome to Node-room.');
+      this.now.receiveMessage('SERVER', 'Welcome to Node-room.');
     });
     
     nowjs.on('disconnect', function() {
-	//get data
-	var cid = this.user.clientId;
-	var user = users.by_cid[cid];
-	//kill user
-	if(user)
-	    users.remove(user);
+      //get data
+      var cid = this.user.clientId;
+      var user = users.by_cid[cid];
+      //kill user
+      if(user){
+        nowjs.getGroup(user.room.name).now.removeUser(user.name);
+        user.destroy();
+      }
     });
     
     everyone.now.distributeMessage = function(msg){

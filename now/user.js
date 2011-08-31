@@ -16,13 +16,15 @@ var User = function(args){
 
 //remove all links to this user
 User.prototype.destroy = function(){
-    lists.forEach(function(list) {
-	list.remove(this);
-    }, this);
-    //quit the room so it can be destroyed if needed
-    if (this.room !== undefined) {
-	room.quit(user);
-    }
+  console.log("DESTROY");
+  this.lists.forEach(function(list) {
+	  list.remove(this);
+  }, this);
+  //quit the room so it can be destroyed if needed
+  if (this.room !== undefined) {
+	  this.room.quit(user);
+    delete this.room;//remove the reference to the room
+  }
 };
 
 User.prototype.rename = function(name){

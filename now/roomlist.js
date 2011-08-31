@@ -26,10 +26,15 @@ RoomList.prototype.join = function(room, user){
 }
 
 //remove both connections
+//
+// EDIT: I don't think we should ever do this... we quit a room, not a roomlist
 RoomList.prototype.quit = function(user){
+  console.log(this.by_name['home'].users.by_name);
   var room = user.room;
   delete user.room;
   room.users.remove(user);
+  console.log('quit');
+  console.log(this.by_name['home'].users.by_name);
   //TODO: check if the room is emptry and destroy it
 };
 
