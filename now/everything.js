@@ -108,7 +108,6 @@ nowstuff.setup = function(everyone){
     };
 
     everyone.now.updateState = function(name, state) {
-<<<<<<< HEAD
 	var cid = this.user.clientId;
 	var user = users.by_cid[cid];
 	
@@ -122,19 +121,6 @@ nowstuff.setup = function(everyone){
 	    user.room.updateState(user.clientId, state);
 	    nowjs.getGroup(user.room.name).now.receiveStateUpdate(user.name, state);
 	}
-=======
-      var cid = this.user.clientId;
-      var user = users.by_cid[cid];
-
-      if(user && user.room) {
-        if(user.equals(state)) {
-          return;
-        }
-         
-        user.room.updateState(user.clientId, state);
-        nowjs.getGroup(user.room.name).now.receiveStateUpdate(user.name, state);
-      }
->>>>>>> 1d9b5f78920cd9ddd5ac28a3d4a76f6c9d31a765
     };
         
     nowjs.on('connect', function () {
