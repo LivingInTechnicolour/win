@@ -7,7 +7,6 @@ function chooseroom(name, cb){
 	modal:true,
 	buttons:{
 	    Yes:function() {
-		console.log("CLICK");
 		cb();
 		$(this).dialog('close');
 	    },

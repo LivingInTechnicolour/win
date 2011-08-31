@@ -9,21 +9,25 @@ function Teleporter(args) {
     this.location.x = args.location.x;
     this.location.y = args.location.y;
     this.action = false;
+    this.showDialog = args.showDialog || true;
 }
 
 Teleporter.prototype = {
     teleport: function() {
 	this.action = true;
 	var cb = function() {
-	    game.changeRoom(this.room, this.map, this.img);
-	    game.player.x = this.location.x;
-	    game.player.y = this.location.y;
-	    game.player.rect.x = this.location.x;
-	    game.player.rect.y = this.location.y;
+	    this.game.changeRoom(this.room, this.map, this.img);
+	    this.game.player.x = this.location.x;
+	    this.game.player.y = this.location.y;
+	    this.game.player.rect.x = this.location.x;
+	    this.game.player.rect.y = this.location.y;
 	    this.action = false;
 	}
-	
-	chooseroom(this.room, $.proxy(cb, this));
+	if(this.showDialog) {
+	    chooseroom(this.room, $.proxy(cb, this));
+	} else {
+	    cb();
+	}
     },
 
     draw: function(context) {

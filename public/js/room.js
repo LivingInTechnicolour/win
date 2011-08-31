@@ -105,6 +105,10 @@ GameCanvas.prototype = {
 		var x_pos = x*32;
 		var y_pos = y*32;
 		var rect = new CollisionRect({'x': x_pos, 'y': y_pos, 'width': 32, 'height': 32, 'visible': true});
+
+		var uprect = new CollisionRect({'x': x_pos, 'y': y_pos, 'width': 32, 'height': 10, 'visible': true});
+		var downrect = new CollisionRect({'x': x_pos, 'y': y_pos+22, 'width': 32, 'height': 10, 'visible': true});
+
 		if(map[y][x] == 1) {
 		    this.player.collideables.push(rect);
 		}
@@ -114,7 +118,7 @@ GameCanvas.prototype = {
 		    location.y = 400;
 		    var tele = new Teleporter({'map': in_map, 
 					       'room': 'building1', 
-					       'rect': rect, 
+					       'rect': uprect, 
 					       'game': this, 
 					       'img':'/img/mapin1.png',
 					       'location': location});
@@ -126,7 +130,7 @@ GameCanvas.prototype = {
 		    location.y = 250;
 		    var tele = new Teleporter({'map': home_map, 
 					       'room': 'home', 
-					       'rect': rect, 
+					       'rect': downrect, 
 					       'game': this, 
 					       'img':'/img/map.png',
 					       'location': location});
@@ -138,7 +142,7 @@ GameCanvas.prototype = {
 		    location.y = 400;
 		    var tele = new Teleporter({'map': in_map, 
 					       'room': 'building2', 
-					       'rect': rect, 
+					       'rect': uprect, 
 					       'game': this, 
 					       'img':'/img/mapin1.png',
 					       'location': location});
@@ -150,7 +154,7 @@ GameCanvas.prototype = {
 		    location.y = 400;
 		    var tele = new Teleporter({'map': in_map, 
 					       'room': 'building3', 
-					       'rect': rect, 
+					       'rect': uprect, 
 					       'game': this, 
 					       'img':'/img/mapin1.png',
 					       'location': location});
@@ -162,7 +166,7 @@ GameCanvas.prototype = {
 		    location.y = 400;
 		    var tele = new Teleporter({'map': in_map, 
 					       'room': 'building4', 
-					       'rect': rect, 
+					       'rect': uprect, 
 					       'game': this, 
 					       'img':'/img/mapin1.png',
 					       'location': location});
