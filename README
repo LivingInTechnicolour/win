@@ -1,2 +1,11 @@
+PROJECT CLOSED DUE TO WE DON'T WANT TO SCALE THIS.
 Node RPG.
-This is a Node JS rpg
+
+This is a Node.js multiplayer chat room with avatars that looks like an RPG.
+
+Features:
+ * Multiple rooms
+ * Real time synchronization
+ * Keyboard command interface
+ * Randomly selected avatars
+ * Super happy fun times!
